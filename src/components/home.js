@@ -42,7 +42,7 @@ function Home() {
       navigate('/viewUsers'); // Redirect to /viewUsers page
     } catch (error) {
       console.error('Error:', error);
-      alert('Error : Duplicate registration number. Please use a different registration number.');
+      alert(error.response ? error.response.data.error : 'Unable to submit the form. Please try again later.');
       // alert('Error: Unable to submit the form. Please try again later.');
     }
   };
