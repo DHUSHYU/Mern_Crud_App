@@ -2,14 +2,20 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const path = require('path');
+
 const routes = require("./routes/students");
+require('dotenv').config(); 
 
 const app = express();
-const port = 5000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+
+  origin:"https://mern-crud-dhushyu-app.vercel.app",
+  methods:"GET,POST,PUT,DELETE",
+  credentials:true
+}));
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -17,27 +23,18 @@ app.use(express.json());
 app.use('/', routes);
 
 //mognodb connection
-mongoose.connect('mongodb://localhost:27017/crudDB', {
-  
-}).then(() => {
-    console.log('MongoDB connected');
-}).catch(err => {
+const uri = process.env.ATLAS_URI;
+const port = process.env.PORT || 5000;
+
+mongoose.connect(uri)
+  .then(() => console.log('Connected to MongoDB successfully'))
+  .catch(err =>{
     console.error('MongoDB connection error', err);
     process.exit(1); // Exit process with failure
 });
 
 
 
-
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-
-
-// Catch-all handler to serve the React app for any other requests
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 // Start the server
 app.listen(port, () => {
