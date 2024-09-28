@@ -9,7 +9,7 @@ function Index() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/viewUsers');
+        const response = await axios.get('https://mern-crud-app-xznd.onrender.com/viewUsers');
         setEvents(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -22,7 +22,7 @@ function Index() {
   const handleDelete = async (registration_number) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:5000/deleteUser/${registration_number}`);
+        await axios.delete(`https://mern-crud-app-xznd.onrender.com/deleteUser/${registration_number}`);
         setEvents(events.filter(event => event.registration_number !== registration_number));
         alert('User deleted successfully');
       } catch (error) {

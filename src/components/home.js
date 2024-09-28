@@ -23,7 +23,7 @@ function Home() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/addusers', formData, {
+      const response = await axios.post('https://mern-crud-app-xznd.onrender.com/addusers', formData, {
         headers: {
           'Content-Type': 'application/json'
         }
